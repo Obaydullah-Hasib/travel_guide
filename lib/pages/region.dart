@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/pages/travel_spot.dart';
 import 'package:travel_guide/widgets/appBarDecoration.dart';
 import 'package:travel_guide/widgets/static_variables.dart';
+
 class RegionPage extends StatefulWidget {
   int? index;
   String? region;
@@ -16,16 +18,31 @@ class _RegionPageState extends State<RegionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarDEcoration(context, '${widget.region}'),
-      body: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount:2,
-        mainAxisExtent: 100,
-      ),itemCount: widget.index==0?StaticVariables.TravelBD.length:StaticVariables.TravelWorld.length ,itemBuilder: (context,index){
-        return Card(
-          child: Text(widget.index==0
-        ?StaticVariables.TravelBD[index]:
-    StaticVariables.TravelWorld[index],
-        ));
-      }),
+      body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 100,
+          ),
+          itemCount: widget.index == 0
+              ? StaticVariables.TravelBD.length
+              : StaticVariables.TravelWorld.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: (){
+
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>TravelSpot(
+                    spot:StaticVariables.TravelBD[index])) );
+              },
+              child: Card(
+                  child: Center(
+                    child: Text(
+                widget.index == 0
+                      ? StaticVariables.TravelBD[index]
+                      : StaticVariables.TravelWorld[index],
+              ),
+                  )),
+            );
+          }),
     );
   }
 }

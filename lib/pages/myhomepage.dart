@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_guide/pages/region.dart';
@@ -62,51 +63,56 @@ class _MyHomePageClassState extends State<MyHomePageClass> {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //one way to launch
-              // children: [
-              //   IconButton(onPressed: (){
-              //    canLaunch(_url_facebook);
-              //   }, icon: Icon(FontAwesomeIcons.facebook,size: 50,color: Colors.lightBlueAccent,)),
-              //   IconButton(onPressed: (){
-              //     canLaunch(_url_twitter);
-              //   }, icon: Icon(FontAwesomeIcons.twitter,size: 50,color: Colors.lightBlue,)),
-              //   IconButton(onPressed: (){
-              //     _launchURL(_url_youtube);
-              //   }, icon: Icon(FontAwesomeIcons.youtube,size: 50,color: Colors.red,)),
-              //   IconButton(onPressed: (){
-              //     _launchURL(_url_instagram);
-              //   }, icon: Icon(FontAwesomeIcons.instagram,size: 50,color: Colors.pinkAccent,)),
-              // ],
-              //OR you can call another function to lauch
-              //OR
-              children: [
-                IconButton(onPressed: () async{
-                  if(await canLaunch(_url_facebook))
+            child: Center(
+              child: Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //one way to launch
+                // children: [
+                //   IconButton(onPressed: (){
+                //    canLaunch(_url_facebook);
+                //   }, icon: Icon(FontAwesomeIcons.facebook,size: 50,color: Colors.lightBlueAccent,)),
+                //   IconButton(onPressed: (){
+                //     canLaunch(_url_twitter);
+                //   }, icon: Icon(FontAwesomeIcons.twitter,size: 50,color: Colors.lightBlue,)),
+                //   IconButton(onPressed: (){
+                //     _launchURL(_url_youtube);
+                //   }, icon: Icon(FontAwesomeIcons.youtube,size: 50,color: Colors.red,)),
+                //   IconButton(onPressed: (){
+                //     _launchURL(_url_instagram);
+                //   }, icon: Icon(FontAwesomeIcons.instagram,size: 50,color: Colors.pinkAccent,)),
+                // ],
+                //OR you can call another function to lauch
+                //OR
+                children: [
+                  IconButton(onPressed: () async{
+                    if(await canLaunch(_url_facebook))
+                      {
+                        await launch(_url_facebook);
+                      }
+                  },
+                      icon: Icon(FontAwesomeIcons.facebook,size: 50,color: Colors.lightBlueAccent,)),
+                  IconButton(onPressed: () async{
+                    if(await canLaunch(_url_twitter))
                     {
-                      await launch(_url_facebook);
+                      await launch(_url_twitter);
                     }
-                }, icon: Icon(FontAwesomeIcons.facebook,size: 50,color: Colors.lightBlueAccent,)),
-                IconButton(onPressed: () async{
-                  if(await canLaunch(_url_twitter))
-                  {
-                    await launch(_url_twitter);
-                  }
-                }, icon: Icon(FontAwesomeIcons.twitter,size: 50,color: Colors.lightBlue)),
-                IconButton(onPressed: () async{
-                  if(await canLaunch(_url_instagram))
-                  {
-                    await launch(_url_instagram);
-                  }
-                }, icon: Icon(FontAwesomeIcons.instagram,size: 50,color: Colors.pink)),
-                IconButton(onPressed: () async{
-                  if(await canLaunch(_url_youtube))
-                  {
-                    await launch(_url_youtube);
-                  }
-                }, icon: Icon(FontAwesomeIcons.youtube,size: 50,color: Colors.red,)),
-              ],
+                  }, icon: Icon(FontAwesomeIcons.twitter,size: 50,color: Colors.lightBlue)),
+                  IconButton(onPressed: () async{
+                    if(await canLaunch(_url_instagram))
+                    {
+                      await launch(_url_instagram);
+                    }
+                  }, icon: Icon(FontAwesomeIcons.instagram,size: 50,color: Colors.pink)),
+                  IconButton(onPressed: () async{
+                    if(await canLaunch(_url_youtube))
+                    {
+                      await launch(_url_youtube);
+                    }
+                  },
+                      icon: Icon(FontAwesomeIcons.youtube,size: 50,color: Colors.red,)),
+                ],
+              ),
             ),
           ),
         )
