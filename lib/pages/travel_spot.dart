@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:travel_guide/model/travel_data.dart';
 import 'package:travel_guide/model/travel_model.dart';
+import 'package:travel_guide/pages/spot_details.dart';
 import 'package:travel_guide/widgets/appBarDecoration.dart';
 class TravelSpot extends StatefulWidget {
   String? spot;
@@ -36,7 +37,11 @@ class _TravelSpotState extends State<TravelSpot> {
         itemCount: 6,
         itemBuilder: (context,index){
       return InkWell(
-        onTap: (){},
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Spot_Details(spotname:travelList[index].spotname,
+               description:travelList[index].description,
+               image:travelList[index].image)));
+        },
         child: Container(
           margin: EdgeInsets.only(
             bottom: 16,left: 10,right: 10
@@ -61,7 +66,7 @@ class _TravelSpotState extends State<TravelSpot> {
                   topRight: Radius.circular(15),
                   topLeft: Radius.circular(15)
                 ),
-                child: Image.asset('assets/images/Obaidul-Quader.jpg',
+                child: Image.asset('${travelList[index].description}',
                 height: 200,
                 width: double.maxFinite,
                 fit: BoxFit.cover,),
@@ -74,8 +79,10 @@ class _TravelSpotState extends State<TravelSpot> {
 
                 child: Column(
                   children: [
-                    Text('${widget.spot}'),
-                    Text('lorem(paragraphs: 1, words: 50 ) ad fadfkj asef lkj;asejf k kj;fdl jasef ;lkfdmgaesr g;lkdfmvaa dsfhbasdf,hsdfbaliufhjalsdkfjha fuakhf  lasdijfk adsfj;aoisfjama;dlsifj alm a;sdijfa lsdkf;dlafigj a;ifkg ms;dflikgja s;gf lj;go alsd;kfj ;alsdkf ala;siel jfr',maxLines: 2,textAlign: TextAlign.justify,)
+                    Text('${travelList[index].spotname}'),
+                   // Text('${widget.spot}'),
+                   Text('${travelList[index].description}')
+                   // Text('lorem(paragraphs: 1, words: 50 ) ad fadfkj asef lkj;asejf k kj;fdl jasef ;lkfdmgaesr g;lkdfmvaa dsfhbasdf,hsdfbaliufhjalsdkfjha fuakhf  lasdijfk adsfj;aoisfjama;dlsifj alm a;sdijfa lsdkf;dlafigj a;ifkg ms;dflikgja s;gf lj;go alsd;kfj ;alsdkf ala;siel jfr',maxLines: 2,textAlign: TextAlign.justify,)
                   ],
                 ) ,
               )

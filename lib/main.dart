@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/pages/crud.dart';
 import 'package:travel_guide/pages/myhomepage.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await firebase_core.Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         hintColor: Colors.white,
 
       ),
-      home: const MyHomePageClass(),
+      home: const RetriveData(),
     );
   }
 }
