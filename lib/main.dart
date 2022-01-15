@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/pages/crud.dart';
+import 'package:travel_guide/pages/imagePicker.dart';
 import 'package:travel_guide/pages/myhomepage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 void main()async {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         hintColor: Colors.white,
 
       ),
-      home: const RetriveData(),
+      home: const imagePickerClass(),
     );
   }
 }
