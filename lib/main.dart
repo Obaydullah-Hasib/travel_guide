@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/pages/crud.dart';
+import 'package:travel_guide/pages/crudBySayedVai.dart';
 import 'package:travel_guide/pages/imagePicker.dart';
 import 'package:travel_guide/pages/myhomepage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:travel_guide/provider/counter_class.dart';
+import 'package:travel_guide/provider/counter_provider.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await firebase_core.Firebase.initializeApp();
@@ -15,17 +19,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-    debugShowCheckedModeBanner: false,
-      title: 'Travel Guide',
+    return ChangeNotifierProvider(
+      create: (context)=> CounterProvider(),
+      child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+        title: 'Travel Guide',
 
-      theme: ThemeData(
-        primaryColor: Colors.teal,
-        primarySwatch: Colors.teal,
-        hintColor: Colors.white,
+        theme: ThemeData(
+          primaryColor: Colors.teal,
+          primarySwatch: Colors.teal,
+          hintColor: Colors.white,
 
+        ),
+        home: const RetriveData_Class(),
       ),
-      home: const imagePickerClass(),
     );
   }
 }
