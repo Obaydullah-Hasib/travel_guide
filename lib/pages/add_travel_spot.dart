@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:travel_guide/widgets/appBarDecoration.dart';
+import 'package:travel_guide/widgets/buttons.dart';
 import 'package:travel_guide/widgets/form_Decoration.dart';
 import 'package:travel_guide/widgets/static_variables.dart';
 class AddTravelSpot extends StatefulWidget {
@@ -12,6 +16,8 @@ class AddTravelSpot extends StatefulWidget {
 class _AddTravelSpotState extends State<AddTravelSpot> {
   String? selectTravelRegion;
   String? selectTravelSpot;
+  ImagePicker picker = ImagePicker();
+  File? _image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +32,21 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
       child: ListView(
         children: [
           ClipRRect(
-            child:Image.asset('assets/images/Obaidul-Quader.jpg',height: 200,width: 200,),
+              child: _image !=null ?Image.file(
+                _image!,
+                width: size.width,
+                height: size.height * 0.3,
+                fit: BoxFit.contain,
+              ):Icon(Icons.image,size: size.height * 0.3,color: Theme.of(context).primaryColor,)
+
+            // child:Image.asset('assets/images/Obaidul-Quader.jpg',height: 200,width: 200,),
           ),
           SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.camera_front)),
-              IconButton(onPressed: (){}, icon: Icon(Icons.image_outlined)),
+              IconButton(onPressed: _getImageFromGallery, icon: Icon(Icons.camera_front)),
+              IconButton(onPressed: _getImageFromCamera, icon: Icon(Icons.image_outlined)),
             ],
           ),
           SizedBox(height: 10,),
@@ -81,6 +94,7 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
                 {
                   setState(() {
                     selectTravelRegion = newValue as String?;
+                    selectTravelSpot = null;
                   });
                 },
             ),
@@ -108,7 +122,10 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
                         fontSize: size.height*0.023
                     ),),
                   ),
-                  items: StaticVariables.TravelBD.map((selectTravelSpot){
+                  items:selectTravelRegion==null?null
+                        :
+                        selectTravelRegion== 'Travel Bangladesh'?
+                      StaticVariables.TravelBD.map((selectTravelSpot){
                     return DropdownMenuItem(child: Container(
                       width: size.width*.75,
                       child: Text(selectTravelSpot,style: TextStyle(
@@ -118,7 +135,20 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
                     ),
                       value: selectTravelSpot,) ;
                   },
-                  ).toList(),
+                  ).toList()
+                            :
+                        selectTravelRegion== 'Travel World'?
+                        StaticVariables.TravelWorld.map((selectTravelSpot){
+                          return DropdownMenuItem(child: Container(
+                            width: size.width*.75,
+                            child: Text(selectTravelSpot,style: TextStyle(
+                              color: Colors.grey[900],
+                              fontSize: 16,
+                            ),),
+                          ),
+                            value: selectTravelSpot,) ;
+                        },
+                        ).toList():null,
                   dropdownColor: Colors.white,
                   onChanged: (newValue)
                   {
@@ -138,8 +168,38 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
 
             ),
           ),
+          SizedBox(height: 10,),
+         InkWell(
+           onTap: (){},
+           child:  button(context,'Submit'),
+         )
         ],
       ),
     );
   }
+  Future<void> _getImageFromGallery()async{
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery,maxWidth: 300,maxHeight: 300);
+    if(pickedFile!=null){
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }else {
+      // showSnackBar(_scaffoldKey, 'No image selected', Colors.deepOrange);
+      Navigator.pop(context);
+    }
+  }
+  Future<void> _getImageFromCamera()async{
+    final pickedFile = await picker.pickImage(source: ImageSource.camera,maxWidth: 300,maxHeight: 300);
+    if(pickedFile!=null){
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }else {
+      // showSnackBar(_scaffoldKey, 'No image selected', Colors.deepOrange);
+      Navigator.pop(context);
+    }
+  }
+
+
 }
+
