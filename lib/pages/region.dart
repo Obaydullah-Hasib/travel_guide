@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/pages/add_travel_spot.dart';
 import 'package:travel_guide/pages/travel_spot.dart';
 import 'package:travel_guide/widgets/appBarDecoration.dart';
 import 'package:travel_guide/widgets/static_variables.dart';
@@ -18,6 +19,11 @@ class _RegionPageState extends State<RegionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarDEcoration(context, '${widget.region}'),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTravelSpot()));
+
+      },
+      child: Icon(Icons.add_box_outlined),),
       body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
