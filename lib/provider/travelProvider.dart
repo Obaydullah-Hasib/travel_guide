@@ -77,10 +77,6 @@
 //
 //
 
-
-
-
-
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -127,10 +123,14 @@ class TravelProvider extends ChangeNotifier {
     final int timestemp = DateTime.now().millisecondsSinceEpoch;
     String id = travelModel.spotname! + timestemp.toString();
     final String submitDate = DateFormat("dd-MMM-yyyy/hh:mm:aa")
-        .format(DateTime.fromMillisecondsSinceEpoch(timestemp));
+        .format(DateTime.now());
     firebase_storage.Reference storageReference = firebase_storage
-        .FirebaseStorage.instance.ref().child('Travel Spot Img').child(id);
-    firebase_storage.UploadTask storageUploadTask = storageReference.putFile(imageFile);
+        .FirebaseStorage.instance
+        .ref()
+        .child('Travel Spot Img')
+        .child(id);
+    firebase_storage.UploadTask storageUploadTask =
+        storageReference.putFile(imageFile);
     firebase_storage.TaskSnapshot taskSnapshot;
     storageUploadTask.then((value) {
       taskSnapshot = value;
@@ -140,26 +140,26 @@ class TravelProvider extends ChangeNotifier {
           'id': id,
           'spotname': travelModel.spotname,
           'image': image,
-          'description': travelModel.description,
-          'travelregion': travelModel.tdescrpition,
+          'description': travelModel.tdescrpition,
+          'travelregion': travelModel.travelregion,
           'travelspot': travelModel.travelspot,
           'timestemp': timestemp,
-          'submitDate': null,
+          'submitDate': submitDate,
         });
         Navigator.pop(context);
       }, onError: (error) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
-              error.toString(),
-            )));
+          error.toString(),
+        )));
       });
     }, onError: (error) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
-            error.toString(),
-          )));
+        error.toString(),
+      )));
     });
   }
 

@@ -1,16 +1,20 @@
 class TravelModel{
+  String? id;
   String? spotname;
-  String? description;
+  String? travelregion;
   String? image;
   String? tdescrpition;
   String? travelspot;
   String? timestamp;
+  String? submitteddate;
 
   TravelModel(
-      {this.spotname,
-      this.description,
+      {this.id,
+      this.spotname,
+      this.travelregion,
       this.image,
       this.tdescrpition,
       this.travelspot,
-      this.timestamp});
+      this.timestamp,
+      this.submitteddate});
 }

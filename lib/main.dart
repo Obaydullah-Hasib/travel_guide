@@ -8,6 +8,7 @@ import 'package:travel_guide/pages/myhomepage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:travel_guide/provider/counter_class.dart';
 import 'package:travel_guide/provider/counter_provider.dart';
+import 'package:travel_guide/provider/travelProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CounterProvider(),
+          create: (context) => TravelProvider(),
         ),
         // ChangeNotifierProvider(
         //   create: (context) => TestProvider(),

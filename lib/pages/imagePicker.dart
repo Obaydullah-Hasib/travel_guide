@@ -33,15 +33,46 @@ Future CameraImage() async{
 
   Future UploadImage() async{
    String imageName = DateTime.now().microsecondsSinceEpoch.toString();
-   var imageFile = FirebaseStorage.instance.ref().child(imageName).child("/.jpg");
+   String id = imageName;
+   var imageFile = FirebaseStorage.instance.ref().child(imageName).child("$imageName");
    UploadTask task = imageFile.putFile(file!);
    TaskSnapshot snapshot = await task;
    //for download image
     url = await snapshot.ref.getDownloadURL();
    ////store the image url into the fireshore database
-    await FirebaseFirestore.instance.collection("images").doc().set({"img":url});
+    await FirebaseFirestore.instance.collection("images").doc(id).set({"img":url});
     print(url);
   }
+  Future<void> deleteImage(String id,BuildContext context)async{
+    await FirebaseFirestore.instance.collection('images').doc(id).delete().then((value) {
+      FirebaseStorage.instance.ref().child('imageName').child(id).delete();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'Delete Successfully',
+          )));
+      // Navigator.pop(context);
+    },onError: (error){
+      Navigator.pop(context);
+    });
+  }
+  Future <void> UpdateImg(String id) async {
+    var imagefile = FirebaseStorage.instance.ref().child('imageName').child(id);
+    TaskSnapshot snapshot = await imagefile.putFile(file!);
+    /// for download the image
+    url = await snapshot.ref.getDownloadURL();
+    /// store the image url into the firestore database
+    await FirebaseFirestore.instance
+        .collection("images")
+        .doc(id)
+        .set({"img": url});
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Successfully Updated',
+        )));
+    // print(url);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
