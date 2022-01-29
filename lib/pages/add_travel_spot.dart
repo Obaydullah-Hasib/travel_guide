@@ -199,7 +199,7 @@ class _AddTravelSpotState extends State<AddTravelSpot> {
                 },
                 onChanged: (value){
                   setState(() {
-                    travelProvider.travelModel.tdescrpition = value;
+                    travelProvider.travelModel.tdescription = value;
                   });
                 },
               ),

@@ -15,38 +15,48 @@ class RegionPage extends StatefulWidget {
 }
 
 class _RegionPageState extends State<RegionPage> {
+  List regionList = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.index == 0) {
+      regionList = StaticVariables.TravelBD;
+    } else {
+      regionList = StaticVariables.TravelWorld;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarDEcoration(context, '${widget.region}'),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTravelSpot()));
-
-      },
-      child: Icon(Icons.add_box_outlined),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddTravelSpot()));
+        },
+        child: Icon(Icons.add_box_outlined),
+      ),
       body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisExtent: 100,
           ),
-          itemCount: widget.index == 0
-              ? StaticVariables.TravelBD.length
-              : StaticVariables.TravelWorld.length,
+          itemCount: regionList.length,
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: (){
-
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>TravelSpot(
-                    spot:StaticVariables.TravelBD[index])) );
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TravelSpot(region: regionList[index])));
               },
               child: Card(
                   child: Center(
-                    child: Text(
-                widget.index == 0
-                      ? StaticVariables.TravelBD[index]
-                      : StaticVariables.TravelWorld[index],
-              ),
-                  )),
+                child: Text(regionList[index]),
+              )),
             );
           }),
     );

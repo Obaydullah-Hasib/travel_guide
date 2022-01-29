@@ -159,7 +159,21 @@ Future CameraImage() async{
                     child: Hero(
                       tag: querysnapshot['img'],
                       child: Card(
-                        child: Image.network(querysnapshot['img'],fit: BoxFit.fill,),
+                        child: Column(
+                          children: [
+                            Image.network(querysnapshot['img'],fit: BoxFit.fill,height: 200,),
+                            Row(
+                              children: [
+                                RaisedButton(onPressed: ()async{
+                                  await deleteImage(querysnapshot.id, context);
+                                },child: Text('Delete'),),
+                                RaisedButton(onPressed: ()async{
+                                  await UpdateImg(querysnapshot.id);
+                                },child: Text('Update'),),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );

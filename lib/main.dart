@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travel_guide/pages/add_travel_spot.dart';
 import 'package:travel_guide/pages/crud.dart';
 import 'package:travel_guide/pages/crudBySayedVai.dart';
-import 'package:travel_guide/pages/imagePicker.dart';
+import 'package:travel_guide/pages/uploadImage.dart';
 import 'package:travel_guide/pages/myhomepage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:travel_guide/provider/counter_class.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           hintColor: Colors.white,
         ),
-        home: const AddTravelSpot(),
+        home: const MyHomePageClass(),
       ),
     );
   }
